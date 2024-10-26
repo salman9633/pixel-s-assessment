@@ -44,20 +44,14 @@ const courseSchema = new mongoose.Schema({
             enum: ["kcal", "kg"]
         },
     },
-    benefit: {
-        type: String,
-        enum: ["Exercise", "Sleeping", "Staying Healthy"]
-    },
-    bringYourOwnKit: {
-        type: String,
-        enum: ["Yes", "No", "Laptop Only", "all"]
-    },
+    benefit:[String],
+    bringYourOwnKit:[String],
     description: {
         type: String
     },
-    public: {
+    private: {
         type: Boolean,
-        required: true
+        required: false
     },
     price: [priceSchema],
     moduleOptions: {
