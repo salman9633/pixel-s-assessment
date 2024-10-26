@@ -6,6 +6,11 @@ import Hashing from "../../services/passowrd/Hashing.js";
 import userValidation from "../../utils/validation/authValidation.js";
 
 const loigController = {
+    /*
+        @Desc     LOGIN USER WITH MOBILE NUMBER
+        @Route    POST /usersAuth/login-using-phone
+        @Access   public 
+    */
     async login(req, res, next) {
         try {
             //client request validation
