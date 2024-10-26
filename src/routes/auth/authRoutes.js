@@ -1,6 +1,6 @@
 import express from "express";
-import loigController from "../../controllers/authentication/loginController";
-import registerController from "../../controllers/authentication/registerController";
+import loigController from "../../controllers/authentication/loginController.js";
+import registerController from "../../controllers/authentication/registerController.js";
 const router = express.Router()
 
 router.post('/login',loigController.login );

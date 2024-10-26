@@ -1,12 +1,17 @@
 import express from "express";
 import apiRoutes from "./src/routes/index.js";
+import cookieParser from "cookie-parser";
+import connectDB from "./src/configs/dbConfig.js";
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-
-app.get("/api", apiRoutes)
+connectDB()
+app.get("/", (req, res) => {
+    res.send("Hello World!");
+})
+app.use("/api", apiRoutes)
 
 app.listen(3000, () => {
     console.log(`App listening on port ${3000}`);
