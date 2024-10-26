@@ -7,12 +7,12 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(errorHandler);
 connectDB()
 app.get("/", (req, res) => {
     res.send("Hello World!");
 })
 app.use("/api", apiRoutes)
+app.use(errorHandler);
 
 app.listen(3000, () => {
     console.log(`App listening on port ${3000}`);

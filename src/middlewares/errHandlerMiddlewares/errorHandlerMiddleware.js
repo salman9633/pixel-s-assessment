@@ -3,7 +3,7 @@ const { ValidationError } = pkg;
 import CustomErrorHandler from "../../Services/errorHandler/customErrorHandler.js";
 
 const errorHandler = async (err, req, res, next) => {
-    
+    console.log('err');
     let statusCode = 500;
     let data = {
         message: "Internal Server Error",
@@ -18,6 +18,8 @@ const errorHandler = async (err, req, res, next) => {
     }
     
     if (err instanceof ValidationError) {
+        console.log('val err');
+        
         statusCode = 422;
 
         let errObj = {
@@ -35,6 +37,8 @@ const errorHandler = async (err, req, res, next) => {
             errors: errObj,
             success:false
         }
+        console.log({data});
+        
     }
 
     if (err instanceof CustomErrorHandler) {
@@ -42,6 +46,7 @@ const errorHandler = async (err, req, res, next) => {
         data.message = err.message;
         data.success = false
     }
+console.log({data});
 
     return res.status(statusCode).json(data);
 }
