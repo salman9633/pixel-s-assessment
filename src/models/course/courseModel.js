@@ -8,6 +8,10 @@ const courseSchema = new mongoose.Schema({
         ref: 'user',
         required: true
     },
+    scheduleId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'schedule',
+    },
     image: {
         type: String,
     },

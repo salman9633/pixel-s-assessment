@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { weekdaysSchema } from "./weekdaysSchema";
+import { weekdaysSchema } from "./weekdaysSchema.js";
 
 
 const scheduleSchema = new mongoose.Schema({

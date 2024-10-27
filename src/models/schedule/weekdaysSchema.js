@@ -43,7 +43,6 @@ export const weekdaysSchema = new mongoose.Schema({
         }
     ]
 
-
 })
 
 

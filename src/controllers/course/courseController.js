@@ -105,6 +105,11 @@ const courseController = {
         }
     },
 
+    /*
+        @Desc     ADD ADVANCED OPTIONS TO THE COURSE 
+        @Route    POST /course/add-advanced-option/:courseId
+        @Access   private 
+    */
     async addAdvancedOptions(req, res, next) {
         try {
             const { error } = courseValidation.advancedOptions.validate(req.body)
