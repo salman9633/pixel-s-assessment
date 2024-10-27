@@ -1,6 +1,6 @@
 import { ACCESS_SECRET } from "../../configs/envConfig.js";
 import User from "../../models/user/userModel.js";
-import CustomErrorHandler from "../../Services/errorHandler/customErrorHandler.js";
+import CustomErrorHandler from "../../services/errorHandler/customErrorHandler.js";
 import JwtService from "../../services/jwt/Jwt.js";
 import Hashing from "../../services/passowrd/Hashing.js";
 import userValidation from "../../utils/validation/authValidation.js";
@@ -8,7 +8,7 @@ import userValidation from "../../utils/validation/authValidation.js";
 const loigController = {
     /*
         @Desc     LOGIN USER WITH MOBILE NUMBER
-        @Route    POST /usersAuth/login-using-phone
+        @Route    POST /auth/login
         @Access   public 
     */
     async login(req, res, next) {
@@ -20,6 +20,10 @@ const loigController = {
             }
 
             const { countryCode, phoneNumber, password } = req.body
+            console.log({
+                countryCode, phoneNumber, password
+            });
+            
             let userExist
             try {
                 //check if user already exist with specified Mobile Number
@@ -27,7 +31,9 @@ const loigController = {
             } catch (error) {
                 return next(error)
             }
-            if (!userExist) return next(CustomErrorHandler.errResponse(200, "Invalid Credentials"));
+            console.log({userExist});
+            
+            if (!userExist) return next(CustomErrorHandler.errResponse(200, "Invalid Credentialsssss"));
 
             // Comparing Password
             const comparePass = await Hashing.compare(password, userExist.password);
@@ -35,7 +41,7 @@ const loigController = {
             // If password not matched
             if (!comparePass) return next(CustomErrorHandler.errResponse(200, "Invalid Credentials"));
 
-            const accessToken = await JwtService.sign({ _id: userExist._id, email: userExist.email, phone: userExist.phone }, ACCESS_SECRET, '24h');
+            const accessToken = await JwtService.sign({ userId: userExist._id, email: userExist.email, phone: userExist.phone }, ACCESS_SECRET, '24h');
 
             return res.status(201).json({
                 success: true,

@@ -1,6 +1,6 @@
 import pkg from 'joi';
 const { ValidationError } = pkg;
-import CustomErrorHandler from "../../Services/errorHandler/customErrorHandler.js";
+import CustomErrorHandler from "../../services/errorHandler/customErrorHandler.js";
 
 const errorHandler = async (err, req, res, next) => {
     console.log('err');

@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import { priceSchema } from "./priceSchema";
+import { priceSchema } from "./priceSchema.js";
 
 const courseSchema = new mongoose.Schema({
     userId: {
@@ -41,7 +41,7 @@ const courseSchema = new mongoose.Schema({
         value: Number,
         unit: {
             type: String,
-            enum: ["kcal", "kg"]
+            enum: ["Kcal", "Kg"]
         },
     },
     benefit:[String],
@@ -49,7 +49,7 @@ const courseSchema = new mongoose.Schema({
     description: {
         type: String
     },
-    private: {
+    isPrivate: {
         type: Boolean,
         required: false
     },
