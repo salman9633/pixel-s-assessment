@@ -15,6 +15,9 @@ router.get('/get-course-deatils/:courseId', proctected, courseController.fetchCo
 
 //Schedule related routes
 router.post('/add-schedule/:courseId', proctected, sheduleController.addSchedulesForCourse);
+router.get('/get-schedule-deatils', proctected, sheduleController.getSheduleDetails);
+router.put('/update-schedule-session', proctected, sheduleController.updateSchedulesForCourse);
+router.put('/active-sessions', proctected, sheduleController.activeteSession);
 
 
 export default router
