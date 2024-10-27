@@ -162,7 +162,6 @@ const sheduleController = {
         if (!schedule) return next(CustomErrorHandler.errResponse(200, 'Schedule not found'));
 
         let session = schedule.weekdays.filter((ele) => ele.day == day)
-        console.log(session);
 
         if (session.length == 0) return next(CustomErrorHandler.errResponse(200, `${day} has no session registered`));
         session[0].isActive = !session[0].isActive

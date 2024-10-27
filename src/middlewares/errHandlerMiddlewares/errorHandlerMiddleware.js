@@ -3,13 +3,11 @@ const { ValidationError } = pkg;
 import CustomErrorHandler from "../../services/errorHandler/customErrorHandler.js";
 
 const errorHandler = async (err, req, res, next) => {
-    console.log('err');
     let statusCode = 500;
     let data = {
         message: "Internal Server Error",
         success:false
     }
-    console.log({ errStack: err.stack });
 
 
     if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
@@ -18,7 +16,6 @@ const errorHandler = async (err, req, res, next) => {
     }
     
     if (err instanceof ValidationError) {
-        console.log('val err');
         
         statusCode = 422;
 
@@ -37,7 +34,6 @@ const errorHandler = async (err, req, res, next) => {
             errors: errObj,
             success:false
         }
-        console.log({data});
         
     }
 
@@ -46,7 +42,6 @@ const errorHandler = async (err, req, res, next) => {
         data.message = err.message;
         data.success = false
     }
-console.log({data});
 
     return res.status(statusCode).json(data);
 }

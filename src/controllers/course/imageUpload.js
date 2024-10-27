@@ -12,7 +12,6 @@ const courseImageController = {
 
 
             if (!req.file) return next(CustomErrorHandler.errResponse(422, 'Please upload a file'));
-            console.log(req.file);
 
             let imaageURL = await uploadImagetoCloudinary(`data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`);
 

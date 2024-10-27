@@ -20,9 +20,6 @@ const loigController = {
             }
 
             const { countryCode, phoneNumber, password } = req.body
-            console.log({
-                countryCode, phoneNumber, password
-            });
             
             let userExist
             try {
@@ -31,7 +28,6 @@ const loigController = {
             } catch (error) {
                 return next(error)
             }
-            console.log({userExist});
             
             if (!userExist) return next(CustomErrorHandler.errResponse(200, "Invalid Credentialsssss"));
 
