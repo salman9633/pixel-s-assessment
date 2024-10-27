@@ -44,8 +44,8 @@ const courseSchema = new mongoose.Schema({
             enum: ["Kcal", "Kg"]
         },
     },
-    benefit:[String],
-    bringYourOwnKit:[String],
+    benefit: [String],
+    bringYourOwnKit: [String],
     description: {
         type: String
     },
@@ -61,9 +61,7 @@ const courseSchema = new mongoose.Schema({
     },
     registrationStartDate: {
         isActive: { type: Boolean, default: false },
-        type: Date,
-        required: true,
-        default: Date.now()
+        value: String,
     },
     bookingDeadline: {
         isActive: { type: Boolean, default: false },
@@ -105,21 +103,21 @@ const courseSchema = new mongoose.Schema({
         isActive: { type: Boolean, default: false },
         value: Number,
     },
-    ageRestriction:{
+    ageRestriction: {
         isActive: { type: Boolean, default: false },
         minAge: {
             type: Number,
-          },
-          maxAge: {
+        },
+        maxAge: {
             type: Number
-          },
+        },
     },
-    genderRestriction:{
+    genderRestriction: {
         isActive: { type: Boolean, default: false },
         gender: {
             type: String,
             enum: ["Male", "Female", "Others"]
-          },
+        },
     }
 
 }, {
