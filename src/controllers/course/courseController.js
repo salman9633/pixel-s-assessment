@@ -83,7 +83,7 @@ const courseController = {
             } catch (error) {
                 return next(CustomErrorHandler.errResponse(203, error.message))
             }
-            let course = await Course.findOne({ $and: [{ userId }, { _id: courseId }] })
+            let course = await Course.findOne({ $and: [{ userId }, { _id: courseId }] });
 
             if (!course) return next(CustomErrorHandler.errResponse(200, 'Course not found'));
 
@@ -263,6 +263,37 @@ const courseController = {
         } catch (error) {
             return next(error)
         }
+    },
+
+     /*
+        @Desc     DELETE A COURSE
+        @Route    GET /course/delete-a-course/:courseId
+        @Access   private 
+    */
+
+    async deleteACourse(req, res, next) {
+        try {
+            const { courseId } = req.params;
+            const { userId } = req.user
+
+            try {
+                idValidator.checking({ courseId });
+            } catch (error) {
+                return next(CustomErrorHandler.errResponse(203, error.message))
+            }
+
+            await Course.deleteOne({ $and: [{ userId }, { _id: courseId }] });
+            await Schedule.deleteOne({ courseId });
+
+            return res.status(200).json({
+                success: true,
+                message: 'Course deleted successfully'
+            });
+        } catch (error) {
+            return next(error)
+        }
+
+
     }
 
 }

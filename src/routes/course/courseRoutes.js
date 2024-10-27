@@ -13,6 +13,7 @@ router.post('/add-new-course', limiter, proctected, courseController.addAnewCour
 router.post('/add-pricing/:courseId', limiter, proctected, courseController.addPricingToCourse);
 router.post('/add-advanced-option/:courseId', limiter, proctected, courseController.addAdvancedOptions);
 router.get('/get-course-deatils/:courseId', limiter, proctected, courseController.fetchCourseDetails);
+router.delete('/delete-a-course/:courseId', limiter, proctected, courseController.deleteACourse);
 
 //Schedule related routes
 router.post('/add-schedule/:courseId', limiter, proctected, sheduleController.addSchedulesForCourse);
