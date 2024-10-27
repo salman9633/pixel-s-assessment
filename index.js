@@ -3,6 +3,7 @@ import apiRoutes from "./src/routes/index.js";
 import cookieParser from "cookie-parser";
 import connectDB from "./src/configs/dbConfig.js";
 import errorHandler from "./src/middlewares/errHandlerMiddlewares/errorHandlerMiddleware.js";
+import { PORT } from "./src/configs/envConfig.js";
 const app = express();
 
 app.use(express.json());
@@ -14,7 +15,7 @@ app.get("/", (req, res) => {
 app.use("/api", apiRoutes)
 app.use(errorHandler);
 
-app.listen(3000, () => {
-    console.log(`App listening on port ${3000}`);
+app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}`);
     // swaggerDocs(app, PORT);
   });
