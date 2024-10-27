@@ -3,6 +3,7 @@ import courseValidation from "../../utils/validation/courseValidation.js"
 import Course from "../../models/course/courseModel.js"
 import CustomErrorHandler from "../../services/errorHandler/customErrorHandler.js"
 import idValidator from "../../utils/idValidator/mongoDBIdValidator.js"
+import Schedule from "../../models/schedule/scheduleModel.js"
 
 const courseController = {
     /*
@@ -188,6 +189,80 @@ const courseController = {
             return next(error);
         }
 
+    },
+
+    /*
+        @Desc     GET COURSE DETAILS 
+        @Route    GET /course/get-course-deatils/:courseId
+        @Access   private 
+    */
+    async fetchCourseDetails(req, res, next) {
+        try {
+            const { userId } = req.user;
+            const { courseId } = req.params;
+
+            try {
+                idValidator.checking({ userId, courseId });
+            } catch (error) {
+                return next(CustomErrorHandler.errResponse(203, error.message))
+            }
+
+            let course = await Course.findOne({ $and: [{ userId }, { _id: courseId }] });
+            if (!course) return next(CustomErrorHandler.errResponse(200, 'Course not found'));
+
+            let schedule = await Schedule.findOne({ courseId: course._id });
+            console.log(course);
+
+            const courseDetails = {
+                image: course?.image,
+                courseName: course.name,
+                category: course.category,
+                branch: course.branch,
+                memberRegistationLimit: course?.memberRegistationLimit,
+
+                mode: course?.mode,
+                courseLevel: course?.level,
+                calorieBurned: course?.calorieBurned,
+                benifit: course?.benefit,
+                bringYourOwnKit: course?.bringYourOwnKit,
+
+                description: course?.description,
+                isPrivate: course?.isPrivate ? "Private" : "Public",
+            }
+
+
+            const advancedSettings = {
+                allowInstallments: course?.moduleOptions?.allowInstallments,
+                allowJoiningAnytime: course?.moduleOptions?.allowJoiningAnytime,
+                autoConfirmWaitlist: course?.moduleOptions?.autoConfirmWaitlist,
+
+                registrationStartDate: course?.registrationStartDate,
+                bookingDeadline: course?.bookingDeadline,
+                reminderBeforeCourse: course?.reminderBeforeCourse,
+                cancellationPeriod: course?.cancellationPeriod,
+                unPaidBookingCancellation: course?.unPaidBookingCancellation,
+                allowWaitlistBooking: course?.allowWaitlistBooking,
+                bookingForFriends: course?.bookingForFriends,
+                ageRestriction: course?.ageRestriction,
+                genderRestriction: course?.genderRestriction
+            }
+
+
+            return res.status(200).json({
+                success: true,
+                message: 'Course details fetched successfully',
+                data: {
+                    courseId: course._id,
+                    courseDetails,
+                    courseFee: course?.price.length < 1 ? "Course Fee Not yet Added for this Course" : course?.price,
+                    advancedSettings,
+                    schedule: schedule ? schedule : "Schedule Details Not yet Added for this Course"
+                }
+            });
+
+        } catch (error) {
+            return next(error)
+        }
     }
 
 }

@@ -5,6 +5,11 @@ import idValidator from "../../utils/idValidator/mongoDBIdValidator.js";
 import scheduleValidation from "../../utils/validation/scheduleValidation.js";
 
 const sheduleController = {
+    /*
+        @Desc     ADD SCHEDULES FOR THE COURSE 
+        @Route    POST /course/add-schedule/:courseId
+        @Access   private 
+    */
     async addSchedulesForCourse(req, res, next) {
         try {
             const { error } = scheduleValidation.addSchedule.validate(req.body)
@@ -26,16 +31,12 @@ const sheduleController = {
 
             const { startDate, endDate, weekdays } = req.body
 
-
-
             let newSchedule = new Schedule({
                 startDate,
                 endDate,
                 courseId,
                 weekdays
             })
-
-
 
             await newSchedule.save()
 
