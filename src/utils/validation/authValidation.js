@@ -51,6 +51,7 @@ const userValidation = {
             "string.empty": "phone number is required",
             "string.min": "Enter Valid phone number",
             "string.max": "Enter Valid phone number",
+            "string.base": "phone number must be a valid phone number",
             "string.pattern.base": "phone number must be a valid phone number",
             "any.required": "phone number Is Required"
 
