@@ -1,5 +1,5 @@
 import User from "../../models/user/userModel.js";
-import CustomErrorHandler from "../../Services/errorHandler/customErrorHandler.js";
+import CustomErrorHandler from "../../services/errorHandler/customErrorHandler.js";
 import Hashing from "../../services/passowrd/Hashing.js";
 import userValidation from "../../utils/validation/authValidation.js";
 
